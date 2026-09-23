@@ -10,6 +10,8 @@ import {
   RefreshCw,
   Trash2,
   ShieldCheck,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 
 interface AdminUsersTabProps {
@@ -154,10 +156,43 @@ export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({ currentUser }) => 
         </div>
       )}
 
+      {/* Pagination Controls */}
+      {pagination.totalPages > 1 && (
+        <div className="mt-6 flex items-center justify-between border-t border-slate-200 pt-4">
+          <span className="text-xs text-slate-500 font-medium">
+            Page {pagination.page} of {pagination.totalPages} (Total: {pagination.total} users)
+          </span>
+          <div className="flex items-center gap-2">
+            <button
+              disabled={pagination.page <= 1}
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              className="p-2 rounded-lg bg-white border border-slate-200 text-slate-700 disabled:opacity-40 hover:bg-slate-50 shadow-sm transition-all"
+              title="Previous Page"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              disabled={pagination.page >= pagination.totalPages}
+              onClick={() => setPage((p) => p + 1)}
+              className="p-2 rounded-lg bg-white border border-slate-200 text-slate-700 disabled:opacity-40 hover:bg-slate-50 shadow-sm transition-all"
+              title="Next Page"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
       <AddUserModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
-        onUserCreated={loadUsers}
+        onUserCreated={() => {
+          if (page === 1) {
+            loadUsers();
+          } else {
+            setPage(1);
+          }
+        }}
       />
     </div>
   );

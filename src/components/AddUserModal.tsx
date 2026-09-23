@@ -20,11 +20,18 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({
   const [role, setRole] = useState<'user' | 'admin'>('user');
   const [interests, setInterests] = useState('');
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
+  const handleModalClose = () => {
+    setError(null);
+    onClose();
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
     setSaving(true);
     try {
       const interestsArr = interests.split(',').map((s) => s.trim()).filter(Boolean);
@@ -39,10 +46,11 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({
       setEmail('');
       setPassword('');
       setInterests('');
+      setError(null);
       onUserCreated();
       onClose();
     } catch (err) {
-      alert((err as Error).message);
+      setError((err as Error).message || 'Failed to create user');
     } finally {
       setSaving(false);
     }
@@ -51,7 +59,13 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4">
       <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-6 shadow-2xl">
-        <h3 className="text-base font-bold text-slate-900 mb-4">Add User (Admin Capability)</h3>
+        <h3 className="text-base font-bold text-slate-900 mb-3">Add User (Admin Capability)</h3>
+
+        {error && (
+          <div className="mb-4 p-3 rounded-lg bg-rose-50 border border-rose-200 text-xs text-rose-700 font-medium">
+            {error}
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs font-semibold text-slate-700">Full Name</label>
@@ -115,7 +129,7 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({
           <div className="flex justify-end gap-2 pt-2">
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleModalClose}
               className="py-2 px-4 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-semibold text-slate-700 transition-colors"
             >
               Cancel
