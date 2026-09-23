@@ -7,20 +7,16 @@ import { Header } from '../components/Header';
 import { AuthView } from '../components/AuthView';
 import { NotesTab } from '../components/NotesTab';
 import { AdminUsersTab } from '../components/AdminUsersTab';
-import { InterestsTab } from '../components/InterestsTab';
-import { LookupTab } from '../components/LookupTab';
 import {
   FileText,
   Users,
-  PieChart,
-  Link as LinkIcon,
   RefreshCw,
 } from 'lucide-react';
 
 export default function Home() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
-  const [adminTab, setAdminTab] = useState<'notes' | 'users' | 'interests' | 'lookup'>('notes');
+  const [adminTab, setAdminTab] = useState<'notes' | 'users'>('notes');
 
   const checkAuth = useCallback(async () => {
     setAuthLoading(true);
@@ -85,7 +81,7 @@ export default function Home() {
   }
 
   // -------------------------------------------------------------
-  // ADMIN VIEW: Full Control Panel (Notes, Users, Aggregations)
+  // ADMIN VIEW: Notes & User Management Only
   // -------------------------------------------------------------
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
@@ -117,30 +113,6 @@ export default function Home() {
             <Users className="h-4 w-4" />
             <span>Manage Users</span>
           </button>
-
-          <button
-            onClick={() => setAdminTab('interests')}
-            className={`flex items-center gap-2 py-2 px-3.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
-              adminTab === 'interests'
-                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-          >
-            <PieChart className="h-4 w-4" />
-            <span>Scenario 1: Interests View</span>
-          </button>
-
-          <button
-            onClick={() => setAdminTab('lookup')}
-            className={`flex items-center gap-2 py-2 px-3.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
-              adminTab === 'lookup'
-                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-          >
-            <LinkIcon className="h-4 w-4" />
-            <span>Scenario 2: User Posts ($lookup)</span>
-          </button>
         </div>
       </nav>
 
@@ -148,8 +120,6 @@ export default function Home() {
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         {adminTab === 'notes' && <NotesTab currentUser={currentUser} />}
         {adminTab === 'users' && <AdminUsersTab currentUser={currentUser} />}
-        {adminTab === 'interests' && <InterestsTab />}
-        {adminTab === 'lookup' && <LookupTab currentUser={currentUser} />}
       </main>
     </div>
   );

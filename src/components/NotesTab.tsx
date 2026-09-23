@@ -62,18 +62,11 @@ export const NotesTab: React.FC<NotesTabProps> = ({ currentUser }) => {
         <div>
           <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
             <FileText className="h-5 w-5 text-emerald-600" />
-            My Notes
+            {currentUser.role === 'admin' ? 'All Notes' : 'My Notes'}
           </h2>
         </div>
 
         <div className="flex items-center gap-3">
-          {currentUser.role === 'admin' && (
-            <span className="text-xs text-rose-700 bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-semibold">
-              <ShieldCheck className="h-4 w-4 text-rose-600" />
-              Admin View: Viewing all notes
-            </span>
-          )}
-
           <button
             onClick={() => {
               setEditingNote(null);
