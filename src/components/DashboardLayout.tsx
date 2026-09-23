@@ -18,11 +18,14 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
 
   if (authLoading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-slate-50 text-slate-800">
+      <div className="flex flex-col h-screen items-center justify-center bg-slate-50 text-slate-800 p-4">
         <div className="flex items-center gap-3">
           <RefreshCw className="h-6 w-6 animate-spin text-emerald-600" />
           <span className="text-base font-semibold">Initializing Secure Platform...</span>
         </div>
+        <p className="text-xs text-slate-500 mt-2.5 text-center max-w-sm">
+          Connecting to live backend. If server is waking from idle sleep, please allow a few moments.
+        </p>
       </div>
     );
   }

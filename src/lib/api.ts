@@ -24,7 +24,14 @@ export const removeToken = (): void => {
   localStorage.removeItem('token');
 };
 
-const request = async <T>(endpoint: string, options: RequestInit = {}): Promise<T> => {
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const request = async <T>(
+  endpoint: string,
+  options: RequestInit = {},
+  retries = 3,
+  delayMs = 3500
+): Promise<T> => {
   const token = getToken();
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
@@ -35,21 +42,67 @@ const request = async <T>(endpoint: string, options: RequestInit = {}): Promise<
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const response = await fetch(`${API_BASE}${endpoint}`, {
-    ...options,
-    headers,
-  });
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const response = await fetch(`${API_BASE}${endpoint}`, {
+        ...options,
+        headers,
+      });
 
-  const data = await response.json();
+      // Handle Render cold start HTTP statuses (502 Bad Gateway, 503 Service Unavailable, 504 Gateway Timeout)
+      if ([502, 503, 504].includes(response.status) && attempt < retries) {
+        console.warn(`[API] Server is waking up (status ${response.status}). Retrying attempt ${attempt}/${retries}...`);
+        await sleep(delayMs);
+        continue;
+      }
 
-  if (!response.ok) {
-    throw new Error(data.message || `Request failed with status ${response.status}`);
+      const contentType = response.headers.get('content-type') || '';
+      let data: any = null;
+
+      if (contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        if (!response.ok) {
+          if (attempt < retries) {
+            console.warn(`[API] Non-JSON response during cold start. Retrying in ${delayMs}ms...`);
+            await sleep(delayMs);
+            continue;
+          }
+          throw new Error('Backend server is warming up on Render. Please wait a few seconds and try again.');
+        }
+        data = text;
+      }
+
+      if (!response.ok) {
+        const errorMsg = data?.message || data?.error || `Request failed with status ${response.status}`;
+        throw new Error(errorMsg);
+      }
+
+      return data as T;
+    } catch (err: any) {
+      const isNetworkError = err.name === 'TypeError' || err.message?.includes('Failed to fetch') || err.message?.includes('NetworkError');
+      if (isNetworkError && attempt < retries) {
+        console.warn(`[API] Connection warming up. Retrying attempt ${attempt}/${retries}...`);
+        await sleep(delayMs);
+        continue;
+      }
+      throw err;
+    }
   }
 
-  return data;
+  throw new Error('Server took too long to wake up. Please refresh the page.');
 };
 
 export const api = {
+  health: {
+    ping: () => {
+      try {
+        const rootUrl = API_BASE.replace(/\/api\/?$/, '');
+        fetch(`${rootUrl}/health`, { mode: 'no-cors' }).catch(() => {});
+      } catch {}
+    },
+  },
   auth: {
     login: (credentials: { email: string; password: string }) =>
       request<{ success: boolean; token: string; user: User }>('/auth/login', {

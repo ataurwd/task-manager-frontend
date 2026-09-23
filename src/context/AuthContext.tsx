@@ -49,6 +49,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   useEffect(() => {
+    // Proactively ping health endpoint to initiate cold-start wake up on Render
+    api.health.ping();
     checkAuth();
   }, [checkAuth]);
 
