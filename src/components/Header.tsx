@@ -19,7 +19,7 @@ export const Header: React.FC<HeaderProps> = ({ currentUser, onLogout }) => {
           </div>
           <div>
             <h1 className="font-bold text-slate-900 text-base tracking-tight">SecureNotes Manager</h1>
-            <p className="text-xs text-slate-500 hidden sm:block">MongoDB Indexed REST Integration</p>
+            <p className="text-xs text-slate-500 hidden sm:block">Organize your notes securely</p>
           </div>
         </div>
 

@@ -72,7 +72,7 @@ export const AuthView: React.FC<AuthViewProps> = ({ onAuthSuccess }) => {
           Secure Notes & Tasks
         </h2>
         <p className="mt-2 text-sm text-slate-600">
-          Role-Based Access Control • MongoDB Indexing • Aggregation Pipelines
+          Organize your notes and tasks securely
         </p>
       </div>
 

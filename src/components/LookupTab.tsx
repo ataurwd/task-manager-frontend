@@ -61,19 +61,8 @@ export const LookupTab: React.FC<LookupTabProps> = ({ currentUser }) => {
       <div className="pb-6 border-b border-slate-200">
         <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
           <LinkIcon className="h-5 w-5 text-emerald-600" />
-          Scenario 2: User Posts ($lookup) Aggregation
+          User Posts Overview
         </h2>
-        <p className="text-xs text-slate-500 mt-1">
-          Constraint strictly satisfied:{' '}
-          <span className="text-emerald-700 font-bold">
-            Single aggregation pipeline with a $lookup stage
-          </span>
-          . ForeignField indexing supported by{' '}
-          <code className="bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 py-0.5 rounded font-mono text-[11px]">
-            {'{ authorId: 1, createdAt: -1 }'}
-          </code>
-          .
-        </p>
       </div>
 
       {/* User Selector */}

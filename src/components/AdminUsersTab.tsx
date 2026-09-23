@@ -71,14 +71,8 @@ export const AdminUsersTab: React.FC<AdminUsersTabProps> = ({ currentUser }) => 
         <div>
           <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
             <Users className="h-5 w-5 text-emerald-600" />
-            Admin User Management
+            User Management
           </h2>
-          <p className="text-xs text-slate-500 mt-1">
-            Supported by compound index{' '}
-            <code className="bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 py-0.5 rounded font-mono text-[11px]">
-              {'{ role: 1, createdAt: -1 }'}
-            </code>
-          </p>
         </div>
 
         <button

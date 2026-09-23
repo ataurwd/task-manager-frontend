@@ -62,14 +62,8 @@ export const NotesTab: React.FC<NotesTabProps> = ({ currentUser }) => {
         <div>
           <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
             <FileText className="h-5 w-5 text-emerald-600" />
-            Notes Management
+            My Notes
           </h2>
-          <p className="text-xs text-slate-500 mt-1">
-            Supported by compound index{' '}
-            <code className="bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 py-0.5 rounded font-mono text-[11px]">
-              {'{ userId: 1, createdAt: -1 }'}
-            </code>
-          </p>
         </div>
 
         <div className="flex items-center gap-3">

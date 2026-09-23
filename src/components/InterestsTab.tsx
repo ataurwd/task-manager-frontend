@@ -34,19 +34,8 @@ export const InterestsTab: React.FC = () => {
           <div>
             <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
               <PieChart className="h-5 w-5 text-emerald-600" />
-              Scenario 1: Users Grouped by Interests
+              Users Grouped by Interests
             </h2>
-            <p className="text-xs text-slate-500 mt-1">
-              Constraint strictly satisfied:{' '}
-              <span className="text-emerald-700 font-bold">
-                Exactly one collection.aggregate() call
-              </span>
-              . Supported by multikey index{' '}
-              <code className="bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 py-0.5 rounded font-mono text-[11px]">
-                {'{ interests: 1 }'}
-              </code>
-              .
-            </p>
           </div>
           <button
             onClick={loadInterests}
