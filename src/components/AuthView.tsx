@@ -63,24 +63,24 @@ export const AuthView: React.FC<AuthViewProps> = ({ onAuthSuccess }) => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-slate-100">
+    <div className="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-slate-900">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <div className="inline-flex items-center justify-center p-3 bg-indigo-600/20 text-indigo-400 rounded-2xl mb-4 border border-indigo-500/30">
-          <ShieldCheck className="h-10 w-10 text-indigo-400" />
+        <div className="inline-flex items-center justify-center p-3 bg-emerald-50 text-emerald-600 rounded-2xl mb-4 border border-emerald-200 shadow-sm">
+          <ShieldCheck className="h-10 w-10 text-emerald-600" />
         </div>
-        <h2 className="text-3xl font-extrabold tracking-tight text-white">
+        <h2 className="text-3xl font-extrabold tracking-tight text-slate-900">
           Secure Notes & Tasks
         </h2>
-        <p className="mt-2 text-sm text-slate-400">
+        <p className="mt-2 text-sm text-slate-600">
           Role-Based Access Control • MongoDB Indexing • Aggregation Pipelines
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-slate-900/90 py-8 px-4 shadow-2xl sm:rounded-2xl sm:px-10 border border-slate-800">
+        <div className="bg-white py-8 px-4 shadow-xl sm:rounded-2xl sm:px-10 border border-slate-200">
           {/* Quick Demo Login Buttons */}
-          <div className="mb-6 pb-6 border-b border-slate-800">
-            <span className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3 text-center">
+          <div className="mb-6 pb-6 border-b border-slate-100">
+            <span className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 text-center">
               Quick Demo Accounts (1-Click)
             </span>
             <div className="grid grid-cols-2 gap-3">
@@ -88,7 +88,7 @@ export const AuthView: React.FC<AuthViewProps> = ({ onAuthSuccess }) => {
                 type="button"
                 onClick={() => handleDemoLogin('admin@example.com')}
                 disabled={submitting}
-                className="flex items-center justify-center gap-2 py-2 px-3 text-xs font-semibold rounded-lg bg-rose-600/10 text-rose-400 border border-rose-500/30 hover:bg-rose-600/20 transition-all"
+                className="flex items-center justify-center gap-2 py-2.5 px-3 text-xs font-semibold rounded-lg bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 transition-all shadow-sm"
               >
                 <ShieldCheck className="h-4 w-4" /> Admin Login
               </button>
@@ -96,7 +96,7 @@ export const AuthView: React.FC<AuthViewProps> = ({ onAuthSuccess }) => {
                 type="button"
                 onClick={() => handleDemoLogin('alice@example.com')}
                 disabled={submitting}
-                className="flex items-center justify-center gap-2 py-2 px-3 text-xs font-semibold rounded-lg bg-indigo-600/10 text-indigo-400 border border-indigo-500/30 hover:bg-indigo-600/20 transition-all"
+                className="flex items-center justify-center gap-2 py-2.5 px-3 text-xs font-semibold rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition-all shadow-sm"
               >
                 <UserIcon className="h-4 w-4" /> User Login
               </button>
@@ -104,14 +104,14 @@ export const AuthView: React.FC<AuthViewProps> = ({ onAuthSuccess }) => {
           </div>
 
           {/* Toggle form type */}
-          <div className="flex border-b border-slate-800 mb-6">
+          <div className="flex border-b border-slate-200 mb-6">
             <button
               type="button"
               onClick={() => { setIsRegistering(false); setError(''); }}
-              className={`flex-1 pb-3 text-sm font-medium transition-colors ${
+              className={`flex-1 pb-3 text-sm font-semibold transition-colors ${
                 !isRegistering
-                  ? 'border-b-2 border-indigo-500 text-indigo-400'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'border-b-2 border-emerald-600 text-emerald-700'
+                  : 'text-slate-500 hover:text-slate-700'
               }`}
             >
               Sign In
@@ -119,10 +119,10 @@ export const AuthView: React.FC<AuthViewProps> = ({ onAuthSuccess }) => {
             <button
               type="button"
               onClick={() => { setIsRegistering(true); setError(''); }}
-              className={`flex-1 pb-3 text-sm font-medium transition-colors ${
+              className={`flex-1 pb-3 text-sm font-semibold transition-colors ${
                 isRegistering
-                  ? 'border-b-2 border-indigo-500 text-indigo-400'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'border-b-2 border-emerald-600 text-emerald-700'
+                  : 'text-slate-500 hover:text-slate-700'
               }`}
             >
               Create Account
@@ -130,7 +130,7 @@ export const AuthView: React.FC<AuthViewProps> = ({ onAuthSuccess }) => {
           </div>
 
           {error && (
-            <div className="mb-4 p-3 rounded-lg bg-red-900/30 border border-red-500/40 text-red-300 text-xs">
+            <div className="mb-4 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs font-medium">
               {error}
             </div>
           )}
@@ -138,38 +138,38 @@ export const AuthView: React.FC<AuthViewProps> = ({ onAuthSuccess }) => {
           <form onSubmit={handleSubmit} className="space-y-4">
             {isRegistering && (
               <div>
-                <label className="block text-xs font-medium text-slate-300">Full Name</label>
+                <label className="block text-xs font-semibold text-slate-700">Full Name</label>
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="mt-1 block w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                  className="mt-1 block w-full rounded-lg bg-slate-50 border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600 focus:bg-white focus:ring-1 focus:ring-emerald-600"
                   placeholder="John Doe"
                 />
               </div>
             )}
 
             <div>
-              <label className="block text-xs font-medium text-slate-300">Email Address</label>
+              <label className="block text-xs font-semibold text-slate-700">Email Address</label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                className="mt-1 block w-full rounded-lg bg-slate-50 border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600 focus:bg-white focus:ring-1 focus:ring-emerald-600"
                 placeholder="user@example.com"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-slate-300">Password</label>
+              <label className="block text-xs font-semibold text-slate-700">Password</label>
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                className="mt-1 block w-full rounded-lg bg-slate-50 border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600 focus:bg-white focus:ring-1 focus:ring-emerald-600"
                 placeholder="••••••••"
               />
             </div>
@@ -177,11 +177,11 @@ export const AuthView: React.FC<AuthViewProps> = ({ onAuthSuccess }) => {
             {isRegistering && (
               <>
                 <div>
-                  <label className="block text-xs font-medium text-slate-300">Role</label>
+                  <label className="block text-xs font-semibold text-slate-700">Role</label>
                   <select
                     value={role}
                     onChange={(e) => setRole(e.target.value as 'user' | 'admin')}
-                    className="mt-1 block w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
+                    className="mt-1 block w-full rounded-lg bg-slate-50 border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-emerald-600 focus:bg-white focus:ring-1 focus:ring-emerald-600"
                   >
                     <option value="user">Regular User</option>
                     <option value="admin">Administrator</option>
@@ -189,14 +189,14 @@ export const AuthView: React.FC<AuthViewProps> = ({ onAuthSuccess }) => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-300">
+                  <label className="block text-xs font-semibold text-slate-700">
                     Interests (Comma separated, for Scenario 1 Aggregation)
                   </label>
                   <input
                     type="text"
                     value={interests}
                     onChange={(e) => setInterests(e.target.value)}
-                    className="mt-1 block w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                    className="mt-1 block w-full rounded-lg bg-slate-50 border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600 focus:bg-white focus:ring-1 focus:ring-emerald-600"
                     placeholder="chess, reading, technology"
                   />
                 </div>
@@ -206,7 +206,7 @@ export const AuthView: React.FC<AuthViewProps> = ({ onAuthSuccess }) => {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full mt-2 py-2.5 px-4 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-900 disabled:opacity-50"
+              className="w-full mt-2 py-2.5 px-4 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition-all shadow-md shadow-emerald-600/20 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 disabled:opacity-50"
             >
               {submitting ? 'Processing...' : isRegistering ? 'Register Account' : 'Sign In'}
             </button>

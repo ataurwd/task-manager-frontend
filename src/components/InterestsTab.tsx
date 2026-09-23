@@ -29,20 +29,20 @@ export const InterestsTab: React.FC = () => {
 
   return (
     <div>
-      <div className="pb-6 border-b border-slate-800">
+      <div className="pb-6 border-b border-slate-200">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
-              <PieChart className="h-5 w-5 text-indigo-400" />
+            <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+              <PieChart className="h-5 w-5 text-emerald-600" />
               Scenario 1: Users Grouped by Interests
             </h2>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-xs text-slate-500 mt-1">
               Constraint strictly satisfied:{' '}
-              <span className="text-emerald-400 font-semibold">
+              <span className="text-emerald-700 font-bold">
                 Exactly one collection.aggregate() call
               </span>
               . Supported by multikey index{' '}
-              <code className="bg-slate-800 px-1 py-0.5 rounded text-indigo-300">
+              <code className="bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 py-0.5 rounded font-mono text-[11px]">
                 {'{ interests: 1 }'}
               </code>
               .
@@ -50,23 +50,23 @@ export const InterestsTab: React.FC = () => {
           </div>
           <button
             onClick={loadInterests}
-            className="flex items-center gap-1.5 py-1.5 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 transition-colors"
+            className="flex items-center gap-1.5 py-1.5 px-3 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-semibold text-slate-700 transition-colors shadow-sm"
           >
-            <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin text-emerald-600' : ''}`} />
             <span>Refresh</span>
           </button>
         </div>
       </div>
 
       {loading ? (
-        <div className="py-20 text-center text-slate-400 flex items-center justify-center gap-2">
-          <RefreshCw className="h-5 w-5 animate-spin text-indigo-400" />
+        <div className="py-20 text-center text-slate-500 flex items-center justify-center gap-2">
+          <RefreshCw className="h-5 w-5 animate-spin text-emerald-600" />
           <span>Running aggregation pipeline...</span>
         </div>
       ) : data.length === 0 ? (
         <div className="py-20 text-center text-slate-500">
-          <PieChart className="h-12 w-12 mx-auto text-slate-600 mb-3" />
-          <p className="text-base font-medium">No interest groups discovered</p>
+          <PieChart className="h-12 w-12 mx-auto text-slate-400 mb-3" />
+          <p className="text-base font-semibold text-slate-700">No interest groups discovered</p>
           <p className="text-xs text-slate-500 mt-1">Users need to have interests assigned to be grouped.</p>
         </div>
       ) : (
@@ -74,14 +74,14 @@ export const InterestsTab: React.FC = () => {
           {data.map((group) => (
             <div
               key={group.interest}
-              className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 hover:border-indigo-500/40 transition-all shadow-md"
+              className="bg-white border border-slate-200 rounded-xl p-5 hover:border-emerald-300 transition-all shadow-sm hover:shadow-md"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                <span className="font-bold text-white text-base capitalize flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-indigo-400" />
+              <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                <span className="font-bold text-slate-900 text-base capitalize flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-emerald-600" />
                   {group.interest}
                 </span>
-                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
+                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
                   {group.count} {group.count === 1 ? 'User' : 'Users'}
                 </span>
               </div>
@@ -90,15 +90,15 @@ export const InterestsTab: React.FC = () => {
                 {group.users.map((u) => (
                   <div
                     key={u._id}
-                    className="flex items-center justify-between text-xs py-1.5 px-2 rounded-lg bg-slate-800/60"
+                    className="flex items-center justify-between text-xs py-2 px-3 rounded-lg bg-slate-50 border border-slate-100"
                   >
                     <div>
-                      <span className="font-medium text-slate-200">{u.name}</span>
-                      <span className="text-[10px] text-slate-400 block">{u.email}</span>
+                      <span className="font-semibold text-slate-800">{u.name}</span>
+                      <span className="text-[10px] text-slate-500 block">{u.email}</span>
                     </div>
                     <span
                       className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
-                        u.role === 'admin' ? 'bg-rose-950 text-rose-300' : 'bg-slate-700 text-slate-300'
+                        u.role === 'admin' ? 'bg-rose-50 text-rose-700 border border-rose-200' : 'bg-slate-200 text-slate-700'
                       }`}
                     >
                       {u.role}

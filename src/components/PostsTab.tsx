@@ -51,14 +51,14 @@ export const PostsTab: React.FC = () => {
 
   return (
     <div>
-      <div className="pb-6 border-b border-slate-800">
-        <h2 className="text-xl font-bold text-white flex items-center gap-2">
-          <MessageSquare className="h-5 w-5 text-indigo-400" />
+      <div className="pb-6 border-b border-slate-200">
+        <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+          <MessageSquare className="h-5 w-5 text-emerald-600" />
           Public Community Posts Feed
         </h2>
-        <p className="text-xs text-slate-400 mt-1">
+        <p className="text-xs text-slate-500 mt-1">
           Visible to everyone. Supported by index{' '}
-          <code className="bg-slate-800 px-1 py-0.5 rounded text-indigo-300">
+          <code className="bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 py-0.5 rounded font-mono text-[11px]">
             {'{ createdAt: -1 }'}
           </code>
           .
@@ -66,8 +66,8 @@ export const PostsTab: React.FC = () => {
       </div>
 
       {/* Post creation form */}
-      <form onSubmit={handleCreatePost} className="mt-6 bg-slate-900/80 border border-slate-800 rounded-xl p-4">
-        <h3 className="text-xs font-semibold text-slate-300 mb-3 uppercase tracking-wider">Publish New Post</h3>
+      <form onSubmit={handleCreatePost} className="mt-6 bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+        <h3 className="text-xs font-bold text-slate-700 mb-3 uppercase tracking-wider">Publish New Post</h3>
         <div className="space-y-3">
           <input
             type="text"
@@ -75,7 +75,7 @@ export const PostsTab: React.FC = () => {
             placeholder="Post title..."
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+            className="w-full rounded-lg bg-slate-50 border border-slate-300 px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600 focus:bg-white focus:ring-1 focus:ring-emerald-600"
           />
           <textarea
             required
@@ -83,13 +83,13 @@ export const PostsTab: React.FC = () => {
             placeholder="Share knowledge with the community..."
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="w-full rounded-lg bg-slate-800 border border-slate-700 px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+            className="w-full rounded-lg bg-slate-50 border border-slate-300 px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600 focus:bg-white focus:ring-1 focus:ring-emerald-600"
           />
           <div className="flex justify-end">
             <button
               type="submit"
               disabled={publishing}
-              className="py-2 px-4 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-lg shadow-indigo-600/30 transition-all disabled:opacity-50"
+              className="py-2 px-4 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-md shadow-emerald-600/20 transition-all disabled:opacity-50"
             >
               {publishing ? 'Publishing...' : 'Publish Post'}
             </button>
@@ -99,14 +99,14 @@ export const PostsTab: React.FC = () => {
 
       {/* Posts Grid */}
       {loading ? (
-        <div className="py-20 text-center text-slate-400 flex items-center justify-center gap-2">
-          <RefreshCw className="h-5 w-5 animate-spin text-indigo-400" />
+        <div className="py-20 text-center text-slate-500 flex items-center justify-center gap-2">
+          <RefreshCw className="h-5 w-5 animate-spin text-emerald-600" />
           <span>Loading feed...</span>
         </div>
       ) : posts.length === 0 ? (
         <div className="py-20 text-center text-slate-500">
-          <MessageSquare className="h-12 w-12 mx-auto text-slate-600 mb-3" />
-          <p className="text-base font-medium">No posts published yet</p>
+          <MessageSquare className="h-12 w-12 mx-auto text-slate-400 mb-3" />
+          <p className="text-base font-semibold text-slate-700">No posts published yet</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-6">
@@ -115,15 +115,15 @@ export const PostsTab: React.FC = () => {
             return (
               <div
                 key={p._id}
-                className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 flex flex-col justify-between"
+                className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:border-emerald-300 hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
-                  <h4 className="font-semibold text-white text-sm">{p.title}</h4>
-                  <p className="text-xs text-slate-300 mt-3 whitespace-pre-wrap leading-relaxed">
+                  <h4 className="font-bold text-slate-900 text-sm">{p.title}</h4>
+                  <p className="text-xs text-slate-600 mt-3 whitespace-pre-wrap leading-relaxed">
                     {p.content}
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
                   <span>{author ? `By ${author.name}` : 'Post'}</span>
                   <span>{new Date(p.createdAt).toLocaleDateString()}</span>
                 </div>
@@ -135,22 +135,22 @@ export const PostsTab: React.FC = () => {
 
       {/* Pagination */}
       {pagination.totalPages > 1 && (
-        <div className="mt-8 flex items-center justify-between border-t border-slate-800 pt-4">
-          <span className="text-xs text-slate-400">
+        <div className="mt-8 flex items-center justify-between border-t border-slate-200 pt-4">
+          <span className="text-xs text-slate-500 font-medium">
             Page {pagination.page} of {pagination.totalPages} (Total: {pagination.total})
           </span>
           <div className="flex items-center gap-2">
             <button
               disabled={pagination.page <= 1}
               onClick={() => setPage((p) => Math.max(1, p - 1))}
-              className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 disabled:opacity-40 hover:bg-slate-800"
+              className="p-2 rounded-lg bg-white border border-slate-200 text-slate-700 disabled:opacity-40 hover:bg-slate-50 shadow-sm"
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
             <button
               disabled={pagination.page >= pagination.totalPages}
               onClick={() => setPage((p) => p + 1)}
-              className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 disabled:opacity-40 hover:bg-slate-800"
+              className="p-2 rounded-lg bg-white border border-slate-200 text-slate-700 disabled:opacity-40 hover:bg-slate-50 shadow-sm"
             >
               <ChevronRight className="h-4 w-4" />
             </button>

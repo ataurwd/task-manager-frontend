@@ -58,15 +58,15 @@ export const NotesTab: React.FC<NotesTabProps> = ({ currentUser }) => {
 
   return (
     <div>
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-800 gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-4">
         <div>
-          <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <FileText className="h-5 w-5 text-indigo-400" />
+          <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+            <FileText className="h-5 w-5 text-emerald-600" />
             Notes Management
           </h2>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Supported by compound index{' '}
-            <code className="bg-slate-800 px-1 py-0.5 rounded text-indigo-300">
+            <code className="bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 py-0.5 rounded font-mono text-[11px]">
               {'{ userId: 1, createdAt: -1 }'}
             </code>
           </p>
@@ -74,9 +74,9 @@ export const NotesTab: React.FC<NotesTabProps> = ({ currentUser }) => {
 
         <div className="flex items-center gap-3">
           {currentUser.role === 'admin' && (
-            <span className="text-xs text-rose-300 bg-rose-950/40 border border-rose-800/50 px-3 py-1.5 rounded-lg flex items-center gap-1.5">
-              <ShieldCheck className="h-4 w-4 text-rose-400" />
-              Admin View: Can view everyone&apos;s notes
+            <span className="text-xs text-rose-700 bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-semibold">
+              <ShieldCheck className="h-4 w-4 text-rose-600" />
+              Admin View: Viewing all notes
             </span>
           )}
 
@@ -85,7 +85,7 @@ export const NotesTab: React.FC<NotesTabProps> = ({ currentUser }) => {
               setEditingNote(null);
               setModalOpen(true);
             }}
-            className="flex items-center gap-1.5 py-2 px-4 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-lg shadow-indigo-600/30 transition-all"
+            className="flex items-center gap-1.5 py-2 px-4 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-md shadow-emerald-600/20 transition-all"
           >
             <Plus className="h-4 w-4" />
             <span>Create Note</span>
@@ -94,14 +94,14 @@ export const NotesTab: React.FC<NotesTabProps> = ({ currentUser }) => {
       </div>
 
       {loading ? (
-        <div className="py-20 text-center text-slate-400 flex items-center justify-center gap-2">
-          <RefreshCw className="h-5 w-5 animate-spin text-indigo-400" />
-          <span>Loading indexed notes...</span>
+        <div className="py-20 text-center text-slate-500 flex items-center justify-center gap-2">
+          <RefreshCw className="h-5 w-5 animate-spin text-emerald-600" />
+          <span>Loading notes...</span>
         </div>
       ) : notes.length === 0 ? (
         <div className="py-20 text-center text-slate-500">
-          <FileText className="h-12 w-12 mx-auto text-slate-600 mb-3" />
-          <p className="text-base font-medium">No notes available</p>
+          <FileText className="h-12 w-12 mx-auto text-slate-400 mb-3" />
+          <p className="text-base font-semibold text-slate-700">No notes available</p>
           <p className="text-xs text-slate-500 mt-1">Create your first note using the button above.</p>
         </div>
       ) : (
@@ -113,12 +113,12 @@ export const NotesTab: React.FC<NotesTabProps> = ({ currentUser }) => {
             return (
               <div
                 key={note._id}
-                className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 flex flex-col justify-between hover:border-slate-700 transition-all shadow-md group"
+                className="bg-white border border-slate-200 rounded-xl p-5 flex flex-col justify-between hover:border-emerald-300 hover:shadow-md transition-all shadow-sm group"
               >
                 <div>
                   <div className="flex items-start justify-between gap-2">
-                    <h3 className="font-semibold text-white text-sm line-clamp-1">{note.title}</h3>
-                    <div className="flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity">
+                    <h3 className="font-bold text-slate-900 text-sm line-clamp-1">{note.title}</h3>
+                    <div className="flex items-center gap-1 opacity-70 group-hover:opacity-100 transition-opacity">
                       {(isOwner || currentUser.role === 'admin') && (
                         <>
                           <button
@@ -126,14 +126,14 @@ export const NotesTab: React.FC<NotesTabProps> = ({ currentUser }) => {
                               setEditingNote(note);
                               setModalOpen(true);
                             }}
-                            className="p-1 hover:text-indigo-400 text-slate-400"
+                            className="p-1 hover:text-emerald-600 text-slate-400 transition-colors"
                             title="Edit"
                           >
                             <Edit2 className="h-3.5 w-3.5" />
                           </button>
                           <button
                             onClick={() => handleDelete(note._id)}
-                            className="p-1 hover:text-rose-400 text-slate-400"
+                            className="p-1 hover:text-rose-600 text-slate-400 transition-colors"
                             title="Delete"
                           >
                             <Trash2 className="h-3.5 w-3.5" />
@@ -143,12 +143,12 @@ export const NotesTab: React.FC<NotesTabProps> = ({ currentUser }) => {
                     </div>
                   </div>
 
-                  <p className="text-xs text-slate-300 mt-3 whitespace-pre-wrap line-clamp-4 leading-relaxed">
+                  <p className="text-xs text-slate-600 mt-3 whitespace-pre-wrap line-clamp-4 leading-relaxed">
                     {note.content}
                   </p>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
                   <span>{author ? `By ${author.name}` : 'Note'}</span>
                   <span>{new Date(note.createdAt).toLocaleDateString()}</span>
                 </div>
@@ -160,22 +160,22 @@ export const NotesTab: React.FC<NotesTabProps> = ({ currentUser }) => {
 
       {/* Pagination */}
       {pagination.totalPages > 1 && (
-        <div className="mt-8 flex items-center justify-between border-t border-slate-800 pt-4">
-          <span className="text-xs text-slate-400">
+        <div className="mt-8 flex items-center justify-between border-t border-slate-200 pt-4">
+          <span className="text-xs text-slate-500 font-medium">
             Page {pagination.page} of {pagination.totalPages} (Total: {pagination.total})
           </span>
           <div className="flex items-center gap-2">
             <button
               disabled={pagination.page <= 1}
               onClick={() => setPage((p) => Math.max(1, p - 1))}
-              className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 disabled:opacity-40 hover:bg-slate-800"
+              className="p-2 rounded-lg bg-white border border-slate-200 text-slate-700 disabled:opacity-40 hover:bg-slate-50 shadow-sm"
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
             <button
               disabled={pagination.page >= pagination.totalPages}
               onClick={() => setPage((p) => p + 1)}
-              className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 disabled:opacity-40 hover:bg-slate-800"
+              className="p-2 rounded-lg bg-white border border-slate-200 text-slate-700 disabled:opacity-40 hover:bg-slate-50 shadow-sm"
             >
               <ChevronRight className="h-4 w-4" />
             </button>

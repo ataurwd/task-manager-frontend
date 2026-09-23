@@ -59,10 +59,10 @@ export default function Home() {
 
   if (authLoading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-slate-900 text-white">
+      <div className="flex h-screen items-center justify-center bg-slate-50 text-slate-800">
         <div className="flex items-center gap-3">
-          <RefreshCw className="h-6 w-6 animate-spin text-indigo-400" />
-          <span className="text-lg font-medium">Initializing Secure Platform...</span>
+          <RefreshCw className="h-6 w-6 animate-spin text-emerald-600" />
+          <span className="text-base font-semibold">Initializing Secure Platform...</span>
         </div>
       </div>
     );
@@ -73,18 +73,18 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
       <Header currentUser={currentUser} onLogout={handleLogout} />
 
       {/* Main Navigation Tabs */}
-      <nav className="border-b border-slate-800 bg-slate-900/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-1 sm:space-x-4 overflow-x-auto py-2">
+      <nav className="border-b border-slate-200 bg-white/70 backdrop-blur shadow-xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-1 sm:space-x-3 overflow-x-auto py-2.5">
           <button
             onClick={() => setActiveTab('notes')}
-            className={`flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+            className={`flex items-center gap-2 py-2 px-3.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
               activeTab === 'notes'
-                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
             <FileText className="h-4 w-4" />
@@ -93,10 +93,10 @@ export default function Home() {
 
           <button
             onClick={() => setActiveTab('admin')}
-            className={`flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+            className={`flex items-center gap-2 py-2 px-3.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
               activeTab === 'admin'
-                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
             <Users className="h-4 w-4" />
@@ -105,10 +105,10 @@ export default function Home() {
 
           <button
             onClick={() => setActiveTab('interests')}
-            className={`flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+            className={`flex items-center gap-2 py-2 px-3.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
               activeTab === 'interests'
-                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
             <PieChart className="h-4 w-4" />
@@ -117,10 +117,10 @@ export default function Home() {
 
           <button
             onClick={() => setActiveTab('lookup')}
-            className={`flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+            className={`flex items-center gap-2 py-2 px-3.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
               activeTab === 'lookup'
-                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
             <LinkIcon className="h-4 w-4" />
@@ -129,10 +129,10 @@ export default function Home() {
 
           <button
             onClick={() => setActiveTab('posts')}
-            className={`flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+            className={`flex items-center gap-2 py-2 px-3.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
               activeTab === 'posts'
-                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
             <MessageSquare className="h-4 w-4" />
