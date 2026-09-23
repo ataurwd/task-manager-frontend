@@ -94,8 +94,10 @@ export const NotesTab: React.FC<NotesTabProps> = ({ currentUser }) => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-6">
           {notes.map((note) => {
-            const author = typeof note.userId === 'object' ? (note.userId as User) : null;
-            const isOwner = author?._id === currentUser._id || note.userId === currentUser._id;
+            const author = typeof note.userId === 'object' && note.userId !== null ? (note.userId as User) : null;
+            const authorId = author ? (author._id || (author as any).id) : (note.userId ? String(note.userId) : '');
+            const currentUserId = currentUser._id || (currentUser as any).id;
+            const isOwner = Boolean(authorId && currentUserId && String(authorId) === String(currentUserId));
 
             return (
               <div
@@ -106,26 +108,27 @@ export const NotesTab: React.FC<NotesTabProps> = ({ currentUser }) => {
                   <div className="flex items-start justify-between gap-2">
                     <h3 className="font-bold text-slate-900 text-sm line-clamp-1">{note.title}</h3>
                     <div className="flex items-center gap-1 opacity-70 group-hover:opacity-100 transition-opacity">
+                      {/* Only the author of the note can edit it */}
+                      {isOwner && (
+                        <button
+                          onClick={() => {
+                            setEditingNote(note);
+                            setModalOpen(true);
+                          }}
+                          className="p-1 hover:text-emerald-600 text-slate-400 transition-colors"
+                          title="Edit Note"
+                        >
+                          <Edit2 className="h-3.5 w-3.5" />
+                        </button>
+                      )}
                       {(isOwner || currentUser.role === 'admin') && (
-                        <>
-                          <button
-                            onClick={() => {
-                              setEditingNote(note);
-                              setModalOpen(true);
-                            }}
-                            className="p-1 hover:text-emerald-600 text-slate-400 transition-colors"
-                            title="Edit"
-                          >
-                            <Edit2 className="h-3.5 w-3.5" />
-                          </button>
-                          <button
-                            onClick={() => handleDelete(note._id)}
-                            className="p-1 hover:text-rose-600 text-slate-400 transition-colors"
-                            title="Delete"
-                          >
-                            <Trash2 className="h-3.5 w-3.5" />
-                          </button>
-                        </>
+                        <button
+                          onClick={() => handleDelete(note._id)}
+                          className="p-1 hover:text-rose-600 text-slate-400 transition-colors"
+                          title="Delete Note"
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </button>
                       )}
                     </div>
                   </div>
